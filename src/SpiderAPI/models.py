@@ -7,7 +7,7 @@ from django.db import models
 class Target(models.Model):
     sid = models.CharField(max_length=20, verbose_name=u"爬取景点id")
     did = models.CharField(max_length=20, verbose_name=u"景点地区id")
-    cookie = models.TextField(verbose_name=u"设置cookie",  blank=True)
+    #cookie = models.TextField(verbose_name=u"设置cookie",  blank=True)
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
 
     class Meta:
@@ -38,7 +38,7 @@ class SightInfo(models.Model):
     # 到达方式
     AddressWay= models.CharField(max_length=50, verbose_name=u"到达方式", blank=True)
     # 描述信息
-    DescriptorText= models.TextField(verbose_name=u"描述信息", blank=True)
+    #DescriptorText= models.TextField(verbose_name=u"描述信息", blank=True)
     # 图片地址
     Img = models.TextField(verbose_name=u"图片地址", blank=True)
 
@@ -52,13 +52,13 @@ class SightInfo(models.Model):
 class UserInfo(models.Model):
     #评论用户信息
     user_Id = models.CharField(max_length=50, verbose_name=u"用户的ID", primary_key=True)
-    user_Nick = models.CharField(max_length=50, verbose_name=u"用户的昵称")
-    user_profile_image_url = models.TextField(verbose_name=u"用户的头像")
+    user_Nick = models.CharField(max_length=50, verbose_name=u"用户的昵称", blank=True)
+    user_profile_image_url = models.TextField(verbose_name=u"用户的头像", blank=True)
     user_Gender = models.IntegerField(default=0, verbose_name=u'用户性别', blank=True)
     user_FriendCount=models.IntegerField(default=0, verbose_name=u'用户关注数', blank=True)
     user_FollowCount=models.IntegerField(default=0, verbose_name=u'用户粉丝', blank=True)
     user_CommentCount=models.IntegerField(default=0, verbose_name=u'用户评论数', blank=True)
-    user_DistrictName=models.CharField(max_length=50, verbose_name=u"用户地区")
+    user_DistrictName=models.CharField(max_length=50, verbose_name=u"用户地区", blank=True)
     class Meta:
         verbose_name = u"用户信息"
         verbose_name_plural = verbose_name
@@ -69,14 +69,14 @@ class CommentInfo(models.Model):
     #景点评论信息
     UserInfo = models.ForeignKey(UserInfo, verbose_name=u"评论用户信息", on_delete=models.CASCADE)
     SightInfo= models.ForeignKey(SightInfo, verbose_name=u"景点信息", on_delete=models.CASCADE)
-    CommentId = models.CharField(max_length=50, verbose_name=u"评论的ID", primary_key=True)
-    DistrictId= models.CharField(max_length=50, verbose_name=u"区域的ID")
-    POIName = models.CharField(max_length=50, verbose_name=u"景点名字")
+    CommentId = models.CharField(max_length=50, verbose_name=u"评论的ID", primary_key=True, blank=True)
+    DistrictId= models.CharField(max_length=50, verbose_name=u"区域的ID", blank=True)
+    POIName = models.CharField(max_length=50, verbose_name=u"景点名字", blank=True)
     TotalStar = models.CharField(max_length=3, verbose_name=u"用户评分", blank=True)
     Content=models.TextField(verbose_name=u"评论内容", blank=True)
-    AuditTime=models.CharField(max_length=50, verbose_name=u"评论时间")
-    LastModifyTime=models.CharField(max_length=50, verbose_name=u"评论时间")
-    Score1=models.CharField(max_length=3, verbose_name=u"景色评分", blank=True)
+    AuditTime=models.CharField(max_length=50, verbose_name=u"评论时间", blank=True)
+    LastModifyTime=models.CharField(max_length=50, verbose_name=u"评论时间", blank=True)
+    Score1 = models.CharField(max_length=3, verbose_name=u"景色评分", blank=True)
     Score2 = models.CharField(max_length=3, verbose_name=u"趣味评分", blank=True)
     Score3 = models.CharField(max_length=3, verbose_name=u"性价比评分", blank=True)
 

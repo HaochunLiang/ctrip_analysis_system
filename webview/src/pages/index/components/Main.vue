@@ -88,23 +88,23 @@ export default {
       if (this.sightId && this.districtId) {
         this.openFullScreen2()
         console.log('zq')
-        axios.post('http://localhost:8000/spiderapi/',
+        axios.post('http://127.0.0.1:8000/spiderapi/',
           Qs.stringify({
             sightId: this.sightId,
             districtId: this.districtId
           }))
           .then((response) => {
-            // console.log(response.data.data)
+            console.log(response.data.data)
             // console.log(response.data.tweets)
             // console.log(response.data.total)
             // console.log(response.data.sentiments)
             // this.$store.state.user = response.data.data
             // this.$store.state.usertweets = response.data.tweets
             // this.$store.state.total = response.data.total
-            this.loading.close()
-            this.$router.push({
-              path: '/user'
-            })
+            // this.loading.close()
+            // this.$router.push({
+            //   path: '/user'
+            // })
           })
           .catch((error) => {
             this.loading.close()

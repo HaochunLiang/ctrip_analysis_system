@@ -15,7 +15,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/ctrip_analysis_system" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1W2wImDRrN8T6ujeQR2zg5exPKl" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -26,7 +26,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ctrip_scrapy" />
     <property name="settings.editor.selected.configurable" value="xml.defaultSchemas" />
   </component>
   <component name="RunManager" selected="Python.manage">
@@ -105,10 +105,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="703" y="287" key="FileChooserDialogImpl" timestamp="1578576249498">
+    <state x="703" y="287" key="FileChooserDialogImpl" timestamp="1578628556032">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="703" y="287" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1578576249498" />
+    <state x="703" y="287" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1578628556032" />
     <state width="1364" height="140" key="GridCell.Tab.0.bottom" timestamp="1578616527012">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

@@ -35,6 +35,7 @@ class Ctrip:
     #获取景点信息
     def get_SightInfo(self):
         try:
+            print("正在爬虫")
             base_url = 'https://m.ctrip.com/webapp/you/gspoi/sight/{}/{}.html'
             url=base_url.format(self.district_id,self.sight_id)
             Content_Type = 'application/x-www-form-urlencoded'
@@ -47,24 +48,27 @@ class Ctrip:
             }
             req = requests.get(url, headers=headers)
             soup = BeautifulSoup(req.content.decode('utf-8'), 'lxml')
+            #print(soup)
             # 名字
-            title = soup.find('p', {'class': 'title'})
+            title = soup.find('p', {'class': 'title'}).string
             # 特点
-            tags = soup.find('div', {'class': 'tags'})
+            tags = soup.find('div', {'class': 'tags'}).contents[2]
             # 排名
-            texts = soup.find('p', {'class': 'texts'})
+            texts = soup.find('p', {'class': 'texts'}).string
             # 评分
-            commentScoreReal = soup.find('p', {'class': 'commentScoreReal'})
+            commentScoreReal = soup.find('p', {'class': 'commentScoreReal'}).string
             # 评论数
-            commentNumberText = soup.find('p', {'class': 'commentNumberText'})
+            commentNumberText = soup.find('p', {'class': 'commentNumberText'}).contents[0]
             # 地点
-            addressText = soup.find('p', {'class': 'addressText ellipsis'})
+            addressText = soup.find('p', {'class': 'addressText ellipsis'}).string
             # 到达方式
-            addressWay = soup.find('p', {'class': 'addressWay'})
+            addressWay = soup.find('p', {'class': 'addressWay'}).string
             # 描述信息
-            descriptorText = soup.find('p', {'class': 'descriptorText'})
+            #descriptorText = soup.find('p', {'class': 'descriptorText'}).string
+            #print(descriptorText)
             # 图片地址
             img = soup.find('img')['src']
+            print(img)
 
             #实例化
             sightInfo=SightInfo()
@@ -85,15 +89,17 @@ class Ctrip:
                 sightInfo.AddressText=addressText
             if addressWay:
                 sightInfo.AddressWay=addressWay
-            if descriptorText:
-                sightInfo.DescriptorText=descriptorText
             if img:
                 sightInfo.Img=img
+            print("结束爬虫")
             try:
-                sightInfo.objects.get(BusinessId= self.sight_id)
-            except sightInfo.DoesNotExist:
+                print(sightInfo)
+                SightInfo.objects.get(BusinessId=self.sight_id)
+                return "用户数据已存在！"
+            except SightInfo.DoesNotExist:
                 sightInfo.save()
-                return "用户信息爬取成功~"
+                print("用户信息爬取成功")
+                return "用户信息爬取成功!"
         except Exception as e:
             print("获取景点信息错误: ", e)
             traceback.print_exc()

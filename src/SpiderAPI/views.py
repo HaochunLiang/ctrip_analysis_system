@@ -57,27 +57,32 @@ class SpiderCtrip:
                 SightInfo.objects.get(BusinessId=text1)
                 res['ok'] = "数据库已存在该用户，开始返回数据"
                 res['data'] = serializers.serialize("json", SightInfo.objects.filter(BusinessId=text1))
+                print("数据库已存在该用户，开始返回数据")
+                return HttpResponse(json.dumps(res))
 
-
-            except UserInfo.DoesNotExist:
+            except SightInfo.DoesNotExist:
                 print("数据库不存在该数据，开始爬虫")
-                Target.objects.filter(id=1).update(uid=text)
-                resp = list(Target.objects.values('uid', 'cookie', 'add_time'))
-                uid = int(resp[0]["uid"])
-                cookie = {"Cookie": resp[0]["cookie"]}
-                wb = Weibo(uid, cookie)
-                wb.get_userInfo()
-                wb.get_weibo_info()
-                qqq = TweetsInfo.objects.filter(Content='').delete()
+                Target.objects.create(sid=text1,did=text2)
+                resp = list(Target.objects.values('sid','did', 'cookie', 'add_time'))
+                print(resp)
+                sid = int(resp[-1]["sid"])
+                did=int(resp[-1]["did"])
+                cp = Ctrip(sight_id=sid,district_id=did,cookie='')
+                cp.get_SightInfo()
+                #cp.get_weibo_info()
+                #qqq = TweetsInfo.objects.filter(Content='').delete()
+                print("爬虫完成")
                 res['ok'] = "数据库不存在该数据的爬虫"
-                res['data'] = serializers.serialize("json", UserInfo.objects.filter(_id=text))
-                aritcles = TweetsInfo.objects.filter(UserInfo_id=text).order_by("-PubTime")  # 查询所有的数据
-                paginator = Paginator(aritcles, 20)  # 对数据进行分页，每页20条
-                print("=======================================")
-                print(paginator.count, paginator.num_pages)
-                pageData = paginator.page(page)
-                res['total'] = paginator.count
-                res['tweets'] = serializers.serialize("json", pageData)
+                res['data'] = serializers.serialize("json", SightInfo.objects.filter(BusinessId=text1))
+
+                #aritcles = TweetsInfo.objects.filter(UserInfo_id=text).order_by("-PubTime")  # 查询所有的数据
+                #paginator = Paginator(aritcles, 20)  # 对数据进行分页，每页20条
+                #print("=======================================")
+                #print(paginator.count, paginator.num_pages)
+                #pageData = paginator.page(page)
+                #res['total'] = paginator.count
+                #res['tweets'] = serializers.serialize("json", pageData)
+
                 return HttpResponse(json.dumps(res))
 
         # if request.method == "GET":
