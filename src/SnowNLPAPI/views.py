@@ -6,7 +6,7 @@ from .snownlp import sentiment
 
 import re
 
-class SnowNLPWeibo:
+class SnowNLPCtrip:
     def SnowNLPAPI(request):
         if request.method == "GET":
             text = request.GET.get("snownlp")

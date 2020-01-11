@@ -164,7 +164,7 @@ export default {
   watch: {
     'textarea': function (newval) {
       if (newval !== '') {
-        axios.get('http://localhost:8000/snownlpapi?&snownlp=' + newval)
+        axios.get('http://127.0.0.1:8000/snownlpapi?&snownlp=' + newval)
           .then((response) => {
             console.log(response.data)
             this.sentiments = parseInt(parseFloat(response.data.sentiments) * 100)

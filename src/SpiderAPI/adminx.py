@@ -20,9 +20,9 @@ class UserInfoAdmin(object):
     list_filter = ['user_Id', 'user_Nick', 'user_profile_image_url', 'user_Gender','user_FriendCount','user_FollowCount','user_CommentCount','user_DistrictName']
 
 class CommentInfoAdmin(object):
-    list_display = ['UserInfo', 'SightInfo', 'CommentId', 'DistrictId','POIName','TotalStar','Content','AuditTime','LastModifyTime','Score1','Score2','Score3']
-    search_fields = ['UserInfo_user_Nick', 'SightInfo_Title', 'CommentId', 'DistrictId','POIName','TotalStar','Content','AuditTime','LastModifyTime','Score1','Score2','Score3']
-    list_filter = ['UserInfo', 'SightInfo', 'CommentId', 'DistrictId','POIName','TotalStar','Content','AuditTime','LastModifyTime','Score1','Score2','Score3']
+    list_display = ['UserInfo','POIName','TotalStar','Content','tags','pinyin','sentiments']
+    search_fields = ['UserInfo_user_Nick', 'SightInfo', 'CommentId', 'DistrictId','POIName','TotalStar','Content','AuditTime','LastModifyTime','Score1','Score2','Score3','tags','pinyin','sentiments','crawl_time']
+    list_filter =  ['UserInfo', 'SightInfo', 'CommentId', 'DistrictId','POIName','TotalStar','Content','AuditTime','LastModifyTime','Score1','Score2','Score3','tags','pinyin','sentiments','crawl_time']
 
 class ImgInfoAdmin(object):
     list_display = ['SightInfo', 'wordcloud']
@@ -36,8 +36,8 @@ class BaseSetting(object):
 
 
 class GlobalSettings(object):
-  site_title = u"携程旅游情感分析系统后台"
-  site_footer = u"携程旅游情感分析系统"
+  site_title = u"携程旅行情感分析系统后台"
+  site_footer = u"携程旅行情感分析系统"
   menu_style = "accordion"
 
 

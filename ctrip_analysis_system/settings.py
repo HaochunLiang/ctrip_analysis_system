@@ -31,8 +31,13 @@ SECRET_KEY = '0!9f05q0@($izck!f6t8mlulvo(7+x8a3707ivh-xkl$d%@55g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    '172.16.0.216',
+    '192.168.31.161',
+    'localhost',
+    '127.0.0.1',
+    '0.0.0.0'
+]
 
 # Application definition
 
@@ -47,6 +52,7 @@ INSTALLED_APPS = [
     "xadmin",
     "crispy_forms",
     'SpiderAPI',
+    'SnowNLPAPI',
 ]
 
 MIDDLEWARE = [

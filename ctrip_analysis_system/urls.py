@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import TemplateView,RedirectView
 from SpiderAPI.views import SpiderCtrip
+from SnowNLPAPI.views import SnowNLPCtrip
 
 import xadmin
 
@@ -25,6 +26,7 @@ urlpatterns = [
     path(r'^$', TemplateView.as_view(template_name="index.html")),
     path('xadmin/', xadmin.site.urls),
     path('spiderapi/', SpiderCtrip.SpiderAPI, name="spiderapi"),
+    path('snownlpapi/', SnowNLPCtrip.SnowNLPAPI, name="snownlpapi"),
     path('favicon.ico', RedirectView.as_view(url='static/favicon.ico')),
 
 ]

@@ -69,7 +69,7 @@ class CommentInfo(models.Model):
     #景点评论信息
     UserInfo = models.ForeignKey(UserInfo, verbose_name=u"评论用户信息", on_delete=models.CASCADE)
     SightInfo= models.ForeignKey(SightInfo, verbose_name=u"景点信息", on_delete=models.CASCADE)
-    CommentId = models.CharField(max_length=50, verbose_name=u"评论的ID", primary_key=True, blank=True)
+    CommentId = models.CharField(max_length=50, verbose_name=u"评论的ID", primary_key=True)
     DistrictId= models.CharField(max_length=50, verbose_name=u"区域的ID", blank=True)
     POIName = models.CharField(max_length=50, verbose_name=u"景点名字", blank=True)
     TotalStar = models.CharField(max_length=3, verbose_name=u"用户评分", blank=True)
@@ -80,11 +80,16 @@ class CommentInfo(models.Model):
     Score2 = models.CharField(max_length=3, verbose_name=u"趣味评分", blank=True)
     Score3 = models.CharField(max_length=3, verbose_name=u"性价比评分", blank=True)
 
+    tags = models.TextField(verbose_name=u"标签", blank=True)
+    pinyin = models.TextField(verbose_name=u"词性", blank=True)
+    sentiments = models.CharField(max_length=50, verbose_name=u"情感值", blank=True)
+    crawl_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间", blank=True)
+
     class Meta:
         verbose_name = u"评论详情"
         verbose_name_plural = verbose_name
     def __str__(self):
-        return "{0}".format(self.CommentInfo)
+        return "{0}".format(self.UserInfo)
 
 class ImgInfo(models.Model):
     SightInfo = models.ForeignKey(SightInfo, verbose_name=u"景点信息", on_delete=models.CASCADE)
