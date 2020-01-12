@@ -43,7 +43,7 @@
       <span class="name">携程旅行情感分析系统</span>
     </div>
     <div class="detail">后台使用django+scrapyd+snownlp 前端vue<br>
-      <!-- <span class="desc">实现了requests+etree爬取少量weibo.cn携程旅行信息以及所发微博，<br>
+      <!-- <span class="desc">实现了requests+etree爬取少量携程旅行信息，<br>
                 可独立爬取单条携程旅行m.ctrip.com以及评论，<br>
                 后台有scrapyd单账号持续爬虫，日均10W条数据，<br>
                 后台使用snownlp实现情感分析，自己训练情感分析模型 <br>
@@ -74,6 +74,7 @@ export default {
     return {
       sightId: '',
       districtId: '',
+      wordcloundId: '',
       loading: ''
     }
   },
@@ -82,9 +83,9 @@ export default {
       // this.weiboId = this.$refs.wbId.value
       this.sightId = this.$refs.sightId.value
       this.districtId = this.$refs.districtId.value
+      // this.wordcloundId = this.$refs.wordcloundId.value
       console.log(this.sightId)
       console.log(this.districtId)
-
       if (this.sightId && this.districtId) {
         this.openFullScreen2()
         console.log('zq')
@@ -95,16 +96,16 @@ export default {
           }))
           .then((response) => {
             console.log(response.data.data)
-            // console.log(response.data.tweets)
-            // console.log(response.data.total)
+            console.log(response.data.comments)
+            console.log(response.data.total)
             // console.log(response.data.sentiments)
-            // this.$store.state.user = response.data.data
-            // this.$store.state.usertweets = response.data.tweets
-            // this.$store.state.total = response.data.total
-            // this.loading.close()
-            // this.$router.push({
-            //   path: '/user'
-            // })
+            this.$store.state.sight = response.data.data
+            this.$store.state.sightcomments = response.data.comments
+            this.$store.state.total = response.data.total
+            this.loading.close()
+            this.$router.push({
+              path: '/sight'
+            })
           })
           .catch((error) => {
             this.loading.close()
@@ -113,33 +114,6 @@ export default {
       } else {
         this.$message.error('景点id和区域id不得为空，请检查后重新输入！')
       }
-      // if (this.weiboId.length === 10) {
-      //   this.openFullScreen2()
-      //   console.log('zq')
-      //   axios.post('http://localhost:8000/spiderapi/',
-      //     Qs.stringify({
-      //       weiboId: this.weiboId
-      //     }))
-      //     .then((response) => {
-      //       // console.log(response.data.data)
-      //       // console.log(response.data.tweets)
-      //       // console.log(response.data.total)
-      //       // console.log(response.data.sentiments)
-      //       this.$store.state.user = response.data.data
-      //       this.$store.state.usertweets = response.data.tweets
-      //       this.$store.state.total = response.data.total
-      //       this.loading.close()
-      //       this.$router.push({
-      //         path: '/user'
-      //       })
-      //     })
-      //     .catch((error) => {
-      //       this.loading.close()
-      //       this.$message.error('请求失败，请检查后台是否正常运行！！', error)
-      //     })
-      // } else {
-      //   this.$message.error('输入微博id有误，请检查后重新输入！')
-      // }
     },
     openFullScreen2 () {
       this.loading = this.$loading({

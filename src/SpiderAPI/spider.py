@@ -67,7 +67,11 @@ class Ctrip:
             #descriptorText = soup.find('p', {'class': 'descriptorText'}).string
             #print(descriptorText)
             # 图片地址
-            img = soup.find('img')['src']
+
+            img=[]
+            Image= soup.find('img')['src']
+            img.append(Image)
+
             #print(img)
             #实例化
             sightInfo=SightInfo()
@@ -250,8 +254,10 @@ class Ctrip:
                     mm += k
                 commentInfo.tags=s.keywords(5)
                 commentInfo.pinyin = mm
-                print(s.sentiments)
-                #commentInfo.sentiments = str(s.sentiments)
+                print(type(s.sentiments))
+                commentInfo.sentiments = s.sentiments
+                #del(dict)
+                #print(commentInfo.sentiments)
             if AuditTime:
                 commentInfo.AuditTime=AuditTime
             if LastModifyTime:

@@ -63,7 +63,7 @@
       <el-col :span="14">
         <div class="grid-content">
           <el-form ref="form" :model="form" :rules="rules" class="ruleForm">
-            <el-form-item label="爬虫微博ID(多账号用逗号隔开)" prop="wbid">
+            <el-form-item label="爬虫景点ID(多账号用逗号隔开)" prop="wbid">
               <el-input v-model="form.wbid" name="wbid"></el-input>
             </el-form-item>
             <el-form-item label="微博Cookie" prop="cookie">

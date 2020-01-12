@@ -10,6 +10,11 @@ export default new Router({
     component: () => import('@/pages/index/Index')
   },
   {
+    path: '/sight',
+    name: 'Sight',
+    component: () => import('@/pages/sight/Sight')
+  },
+  {
     path: '/user',
     name: 'User',
     component: () => import('@/pages/user/User')

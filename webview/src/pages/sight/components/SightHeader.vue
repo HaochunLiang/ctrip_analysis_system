@@ -1,14 +1,19 @@
 <template>
-  <div class="user">
-    <div class="user-header">
+  <div class="sight">
+<!--            {{this.sightInfo[0].pk}}
+            <br><br>
+            {{this.sightInfo[0].fields.Img}}
+            <br><br>
+            {{this.img[0]}}
+            <br><br>
+            {{this.imglen}} -->
+    <div class="sight-header">
       <div class="photo-warp">
-        <img :src="this.img[0]" class="wb-img">
+        <img :src="this.img[0]" class="cp-img">
       </div>
-      <div class="wb-name">
+      <div class="cp-name">
         <!-- <img class="wb-logo" src="//www.sinaimg.cn/blog/developer/wiki/LOGO_32x32.png"> -->
-        <span class="name">{{this.userInfo[0].fields.NickName}}</span>
-        <img :src="this.imgsex" class="sex">
-        <div class="wb-brief">{{this.wbbrief}}</div>
+        <span class="name">{{this.sightInfo[0].fields.Title}}</span>
       </div>
     </div>
     <el-row :gutter="20">
@@ -17,84 +22,74 @@
           <div class="info-left">
             <el-card class="box-card">
               <div slot="header" class="clearfix">
-                <span>关注 | 粉丝 | 微博数</span>
+                <span>评分 | 评论数</span>
                 <el-button style="float: right; padding: 3px 0" type="text"></el-button>
               </div>
               <div class="text item item1">
-                {{this.userInfo[0].fields.Num_Follows}}
+                {{this.sightInfo[0].fields.CommentScoreReal}}
               </div>
               <div class="text item item1">
-                {{this.userInfo[0].fields.Num_Fans}}
+                {{this.sightInfo[0].fields.CommentNumberText}}
               </div>
-              <div class="text item">
-                {{this.userInfo[0].fields.Num_Tweets}}
+              <div class="text item item1">
+                -----
               </div>
-              <div class="text item item2">关注数</div>
-              <div class="text item item2">粉丝数</div>
-              <div class="text item item2">微博数</div>
+              <div class="text item item2">评分</div>
+              <div class="text item item2">评论数</div>
             </el-card>
+
             <el-card class="box-card-detail">
               <div slot="header" class="clearfix">
                 <span>基本信息</span>
                 <!-- <el-button style="float: right; padding: 3px 0" type="text"></el-button> -->
               </div>
+
               <div class="text item3 item3-txt">
-                微博勋章
+                地区id
               </div>
               <div class="text item3-detail">
-                <span v-if="this.srcs"><img v-for="src in this.srcs" :key="src" :src="src" class="wb-xz"></span>
-                <span v-else>该用户没有勋章哦~</span>
+                {{this.sightInfo[0].fields.DistrictId}}
               </div>
+
               <div class="text item3 item3-txt">
-                所在地方
+                特点
               </div>
               <div class="text item3-detail">
-                {{this.userInfo[0].fields.Province}} {{this.userInfo[0].fields.City}}
+                {{this.sightInfo[0].fields.Tags}}
               </div>
+
               <div class="text item3 item3-txt">
-                生日/星座
-              </div>
-              <div class="text item3-detail" v-if="this.userInfo[0].fields.Birthday || this.userInfo[0].fields.Constellation">
-                {{this.userInfo[0].fields.Birthday}} {{this.userInfo[0].fields.Constellation}}
-              </div>
-              <div class="text item3-detail" v-else>
-                无
-              </div>
-              <div class="text item3 item3-txt">
-                性取向
+                排名
               </div>
               <div class="text item3-detail">
-                <span v-if="this.userInfo[0].fields.SexOrientation">{{this.userInfo[0].fields.SexOrientation}}</span>
+                <span v-if="this.sightInfo[0].fields.Texts">{{this.sightInfo[0].fields.Texts}}</span>
                 <span v-else>无</span>
               </div>
+
               <div class="text item3 item3-txt">
-                情感状态
+                地点
               </div>
               <div class="text item3-detail">
-                <span v-if="this.userInfo[0].fields.Sentiment">{{this.userInfo[0].fields.Sentiment}}</span>
+                <span v-if="this.sightInfo[0].fields.AddressText">{{this.sightInfo[0].fields.AddressText}}</span>
                 <span v-else>无</span>
               </div>
+
               <div class="text item3 item3-txt">
-                VIP等级
+                到达方式
               </div>
               <div class="text item3-detail">
-                <span v-if="this.userInfo[0].fields.VIPlevel">{{this.userInfo[0].fields.VIPlevel}}</span>
+                <span v-if="this.sightInfo[0].fields.AddressWay">{{this.sightInfo[0].fields.AddressWay}}</span>
                 <span v-else>无</span>
               </div>
+
               <div class="text item3 item3-txt">
-                认证
+                携程主页
               </div>
               <div class="text item3-detail">
-                <span v-if="this.userInfo[0].fields.Authentication">{{this.userInfo[0].fields.Authentication}}</span>
-                <span v-else>无</span>
-              </div>
-              <div class="text item3 item3-txt">
-                主页
-              </div>
-              <div class="text item3-detail">
-                <a :href='this.userInfo[0].fields.URL' target="_blank" class="index">{{this.userInfo[0].fields.NickName}}</a>
+                <a :href='this.sightInfo[0].fields.BusinessId' target="_blank" class="index">{{this.sightInfo[0].fields.Title}}</a>
               </div>
             </el-card>
+
             <el-card class="box-card-detail ciyun">
               <div slot="header" class="clearfix">
                 <span>词云展示</span>
@@ -104,7 +99,7 @@
               <div v-else>
                 <ve-wordcloud :data="chartData" :settings="chartSettings"></ve-wordcloud>
                 <div class="well fz14" style="padding: 0.3125rem;font-size: 13px;margin-bottom: 0;background-color:#f7f9fa !important">
-                  用户@<strong>{{this.userInfo[0].fields.NickName}}</strong>的微博内容中，词云分析结果如上图所示，其中
+                  景点@<strong>{{this.sightInfo[0].fields.Title}}</strong>的评论内容中，词云分析结果如上图所示，其中
                   <strong>{{this.chartData.rows[0].word}}</strong>的频率最高，达到
                   <strong>{{this.chartData.rows[0].count}}</strong>次，其次是
                   <strong>{{this.chartData.rows[1].word}}</strong>、
@@ -125,7 +120,7 @@
               <div v-else>
                 <ve-bar :data="this.minganData" height="3.4rem" style="margin-top: .3125rem;"></ve-bar>
                 <div class="well fz14" style="padding: 0.3125rem;font-size: 13px;margin-bottom: 0;background-color:#f7f9fa !important">
-                  用户@<strong>{{this.userInfo[0].fields.NickName}}</strong>的微博内容中，敏感占比（当前敏感率只检测暴恐、反动、民生、色情等词汇）
+                  景点@<strong>{{this.sightInfo[0].fields.Title}}</strong>的评论内容中，敏感占比（当前敏感率只检测暴恐、反动、民生、色情等词汇）
                   <strong>{{this.minganData.rows[0].敏感*100}}%</strong>,
                   在<strong>
                     <span v-if="this.minganData.rows[0].敏感 < 0.25">极低</span>
@@ -146,9 +141,9 @@
               <div v-else>
                 <ve-line :data="textchartData" style="margin-top: .3125rem;"></ve-line>
                 <div class="well fz14" style="padding: 0.3125rem;font-size: 13px;margin-bottom: 0;background-color:#f7f9fa !important">
-                  用户@<strong>{{this.userInfo[0].fields.NickName}}</strong>的微博内容中，
-                  总微博条数<strong>{{this.userInfo[0].fields.Num_Tweets}}</strong>条，
-                  经过处理得到有效微博条数<strong>{{this.emtionanaly.len}}</strong>条。有效微博情感分析结果如上图所示，
+                  景点@<strong>{{this.sightInfo[0].fields.Title}}</strong>的评论内容中，
+                  总微博条数<strong>{{this.sightInfo[0].fields.CommentNumberText}}</strong>条，
+                  经过处理得到有效微博条数<strong>{{this.emtionanaly.len}}</strong>条。有效情感分析结果如上图所示，
                   其中消极评论最小值<strong>{{ this.emtionanaly.smalldate }}</strong>
                   ，次数是<strong>{{ this.emtionanaly.smallcount }}</strong>；
                   积极评论最大值<strong>{{ this.emtionanaly.bigdate }}</strong>
@@ -168,48 +163,44 @@
           <div class="info-right" ref="element">
             <el-card class="box-card">
               <div slot="header" class="clearfix">
-                <span>微博内容情感分析</span>
+                <span>评论内容情感分析</span>
                 <el-button style="float: right; padding: 3px 0" type="text"></el-button>
               </div>
-              <div v-for="(tweet, index) in this.userTweets" :key="index" style="height:auto">
-                <div class="tweets-header">
-                  <div class="wb-id">
-                    <span>微博ID：{{tweet.pk}}</span>
-                    <el-button style="float: right; padding: 3px 0" type="text">{{tweet.fields.PubTime}} </el-button>
+              <div v-for="(comment, index) in this.sightComments" :key="index" style="height:auto">
+                <div class="comments-header">
+                  <div class="cp-id">
+                    <span>评论ID：{{comment.pk}}</span>
+                    <el-button style="float: right; padding: 3px 0" type="text">{{comment.fields.AuditTime}} </el-button>
                   </div>
-                  <div class="wb-content">
-                    <i class="el-icon-edit write"></i>{{tweet.fields.Content}}
+                  <div class="cp-content">
+                    <i class="el-icon-edit write"></i>{{comment.fields.Content}}
                   </div>
-                  <div class="wb-add">
+                  <div class="cp-add">
                     <span>
-                      定位：{{tweet.fields.Co_oridinates}}
-                      来自{{tweet.fields.Tools}}
+                      景色：{{comment.fields.Score1}}
+                      趣味：{{comment.fields.Score2}}
+                      性价比：{{comment.fields.Score3}}
                     </span>
-                    <button class="el-button el-button--default el-button--small el-b">点赞{{tweet.fields.Like}}</button>
-                    <button
-                      class="el-button el-button--default el-button--small el-b">评论{{tweet.fields.Comment}}</button>
-                    <button
-                      class="el-button el-button--default el-button--small el-b">转发{{tweet.fields.Transfer}}</button>
                   </div>
                 </div>
                 <div class="tweets-footer clearfix">
                   <div class="footer-left">
                     关键字：
-                    <span v-if="tweet.fields.sentiments>0.5" style="background:#c2e7b0">
-                      {{tweet.fields.tags}}
+                    <span v-if="comment.fields.sentiments>0.5" style="background:#c2e7b0">
+                      {{comment.fields.tags}}
                     </span>
                     <span v-else style="background:#fbc4c4">
-                      {{tweet.fields.tags}}
+                      {{comment.fields.tags}}
                     </span>
                     <br>
-                    情感数值：{{tweet.fields.sentiments}}
+                    情感数值：{{comment.fields.sentiments}}
                     <br>
-                    词性：{{tweet.fields.pinyin}}
+                    词性：{{comment.fields.pinyin}}
                   </div>
                   <div class="footer-right">
-                    <el-progress class="progress" v-if="tweet.fields.sentiments>0.5" type="circle"
-                      :percentage="tweet.fields.sentiments*100" color="#13ce66" status="text">情感积极</el-progress>
-                    <el-progress class="progress" v-else type="circle" :percentage="tweet.fields.sentiments*100"
+                    <el-progress class="progress" v-if="comment.fields.sentiments>0.5" type="circle"
+                      :percentage="comment.fields.sentiments*100" color="#13ce66" status="text">情感积极</el-progress>
+                    <el-progress class="progress" v-else type="circle" :percentage="comment.fields.sentiments*100"
                       color="#ff4949" status="text">情感消极</el-progress>
                   </div>
                 </div>
@@ -236,7 +227,7 @@ import {
 import axios from 'axios'
 import Qs from 'qs'
 export default {
-  name: 'UserHeader',
+  name: 'SightHeader',
   data () {
     this.chartSettings = {
       sizeMin: 20,
@@ -252,7 +243,7 @@ export default {
       },
       size: 20,
       currentPage: 1,
-      mytweets: this.$store.state.usertweets,
+      mycomments: this.$store.state.sightcomments,
       srcs: this.msrcs(),
       emtionanaly: {
         count0: 0,
@@ -269,42 +260,37 @@ export default {
   },
   computed: {
     ...mapState({
-      user: state => state.user,
+      // user: state => state.user,
       // mytweets:state=>state.usertweets,
+      sight: state => state.sight,
+      mycomments: state => state.sightcomments,
       total: state => state.total
     }),
-    userInfo: function () {
-      return eval('(' + this.user + ')')
+    sightInfo: function ()
+    {
+      return eval('(' + this.sight + ')')
     },
-    userTweets: function () {
-      return eval('(' + this.mytweets + ')')
+    sightComments: function ()
+    {
+      return eval('(' + this.mycomments + ')')
     },
-    img: function () {
-      return eval('(' + this.userInfo[0].fields.Image + ')')
+    img: function ()
+    {
+       return eval('(' +this.sightInfo[0].fields.Img + ')')
+      //return eval('(' + '' + ')')
     },
-    imglen: function () {
+    imglen: function ()
+    {
       return this.img.length
     },
-    weiboId: function () {
-      return this.userInfo[0].pk
-    },
-    imgsex: function () {
-      if (this.userInfo[0].fields.Gender === '男') {
-        return this.imgObj.sexman
-      } else {
-        return this.imgObj.sexwoman
-      }
-    },
-    wbbrief: function () {
-      if (this.userInfo[0].fields.BriefIntroduction === '' || this.userInfo[0].fields.BriefIntroduction === null) {
-        return '一句话介绍自己，让别人更了解你'
-      } else {
-        return this.userInfo[0].fields.BriefIntroduction
-      }
+    sightId: function ()
+    {
+      return this.sightInfo[0].pk
     }
   },
   methods: {
-    msrcs: function () {
+    msrcs: function ()
+    {
       if (this.imglen > 1) {
         return this.img.splice(1)
       } else {
@@ -312,7 +298,9 @@ export default {
       }
     },
     open () {
-      if (this.user === '' || this.user === null || this.mytweets === '' || this.mytweets === null) {
+      console.log(this.sightInfo[0].pk)
+
+      if (this.sight === '' || this.sight === null || this.mycomments === '' || this.mycomments === null) {
         this.$notify.error({
           title: '信息错误',
           message: '你似乎来到知识的荒原~',
@@ -324,7 +312,7 @@ export default {
           message: '后台抓取用户所有信息开始生成词云',
           position: 'bottom-right'
         })
-        axios.get('http://localhost:8000/wordcloudapi?&weiboId=' + this.weiboId)
+        axios.get('http://127.0.0.1:8000/wordcloudapi?&sightId=' + this.sightId)
           .then((response) => {
             let res = []
             for (let i = 0; i < response.data.cipin.length; i++) {
@@ -388,19 +376,20 @@ export default {
     },
     handleCurrentChange (val) {
       console.log(val)
-      axios.post('http://localhost:8000/tweetsapi/',
+      console.log(this.sightId)
+      axios.post('http://127.0.0.1:8000/commentsapi/',
         Qs.stringify({
-          weiboId: this.weiboId,
+          sightId: this.sightId,
           page: val
         })
       ).then((response) => {
-        this.$store.state.usertweets = null
-        this.$store.state.usertweets = response.data.data
-        this.mytweets = response.data.data
+        this.$store.state.sightcomments = null
+        this.$store.state.sightcomments = response.data.data
+        this.sightcomments = response.data.data
         // console.log(this.$store.state.usertweets)
       })
     },
-    ...mapMutations(['changeUserTweets'])
+    ...mapMutations(['changeSightComments'])
   },
   mounted () {
     this.open()
@@ -410,14 +399,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .user {
+  .sight {
     padding: 0 100px 0 100px;
     margin-bottom: 20px;
     margin: 0 auto;
     max-width: 1100px;
     min-width: 1000px;
 
-    .user-header {
+    .sight-header {
       width: 100%;
       text-align: center;
       height: 200px;
@@ -431,7 +420,7 @@ export default {
         border-radius: 50%;
         position: relative;
 
-        .wb-img {
+        .cp-img {
           width: 120px;
           height: 120px;
           border-radius: 50%;
@@ -445,10 +434,10 @@ export default {
         // }
       }
 
-      .wb-name {
+      .cp-name {
         margin-top: 5px;
 
-        .wb-logo {
+        .cp-logo {
           width: 32px;
           height: 32px;
           vertical-align: middle;
@@ -466,7 +455,7 @@ export default {
           vertical-align: middle;
         }
 
-        .wb-brief {
+        .cp-brief {
           margin-top: 10px;
           color: #fff;
           font-size: .2rem;
@@ -502,7 +491,7 @@ export default {
         text-align: center;
       }
 
-      .wb-xz {
+      .cp-xz {
         width: 22px;
         height: 22px;
       }
@@ -548,14 +537,14 @@ export default {
       vertical-align: top;
       font-size: .2rem;
 
-      .tweets-header {
-        .wb-id {
+      .comments-header {
+        .cp-id {
           font-size: 14px;
           color: #808080;
         }
       }
 
-      .tweets-footer {
+      .comments-footer {
         background-color: #ecf8ff;
         border-radius: 4px;
         border-left: 5px solid #50bfff;
@@ -582,7 +571,7 @@ export default {
         }
       }
 
-      .wb-content {
+      .cp-content {
         margin: 10px 0;
         font-size: 15px;
 
@@ -593,7 +582,7 @@ export default {
         }
       }
 
-      .wb-add {
+      .cp-add {
         text-align: right;
         color: #808080;
 

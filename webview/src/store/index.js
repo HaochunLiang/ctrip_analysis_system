@@ -10,9 +10,17 @@ import tempid from './tempId'
 import tempids from './tempids'
 import group from './group'
 
+// new
+import sight from './sightInfo'
+import sightcomment from './sightComments'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  // 新增加的内容
+  sight,
+  sightcomment,
+  // 旧的内容
   user,
   usertweets,
   tempid,

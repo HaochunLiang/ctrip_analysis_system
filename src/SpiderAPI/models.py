@@ -75,14 +75,14 @@ class CommentInfo(models.Model):
     TotalStar = models.CharField(max_length=3, verbose_name=u"用户评分", blank=True)
     Content=models.TextField(verbose_name=u"评论内容", blank=True)
     AuditTime=models.CharField(max_length=50, verbose_name=u"评论时间", blank=True)
-    LastModifyTime=models.CharField(max_length=50, verbose_name=u"评论时间", blank=True)
+    LastModifyTime=models.CharField(max_length=50, verbose_name=u"最后修改时间", blank=True)
     Score1 = models.CharField(max_length=3, verbose_name=u"景色评分", blank=True)
     Score2 = models.CharField(max_length=3, verbose_name=u"趣味评分", blank=True)
     Score3 = models.CharField(max_length=3, verbose_name=u"性价比评分", blank=True)
 
     tags = models.TextField(verbose_name=u"标签", blank=True)
     pinyin = models.TextField(verbose_name=u"词性", blank=True)
-    sentiments = models.CharField(max_length=50, verbose_name=u"情感值", blank=True)
+    sentiments = models.FloatField(default=0, verbose_name=u"情感值", blank=True)
     crawl_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间", blank=True)
 
     class Meta:

@@ -26,6 +26,9 @@ urlpatterns = [
     path(r'^$', TemplateView.as_view(template_name="index.html")),
     path('xadmin/', xadmin.site.urls),
     path('spiderapi/', SpiderCtrip.SpiderAPI, name="spiderapi"),
+    path('wordcloudapi/', SpiderCtrip.WordCloudAPI, name="wordcloudapi"),
+    path('commentsapi/', SpiderCtrip.CommentsAPI, name="commentsapi"),
+
     path('snownlpapi/', SnowNLPCtrip.SnowNLPAPI, name="snownlpapi"),
     path('favicon.ico', RedirectView.as_view(url='static/favicon.ico')),
 
