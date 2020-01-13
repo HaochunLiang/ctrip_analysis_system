@@ -18,6 +18,8 @@ from django.urls import path
 from django.views.generic.base import TemplateView,RedirectView
 from SpiderAPI.views import SpiderCtrip
 from SnowNLPAPI.views import SnowNLPCtrip
+from ScrapydAPI.views import ScrapydCtrip
+
 
 import xadmin
 
@@ -28,7 +30,7 @@ urlpatterns = [
     path('spiderapi/', SpiderCtrip.SpiderAPI, name="spiderapi"),
     path('wordcloudapi/', SpiderCtrip.WordCloudAPI, name="wordcloudapi"),
     path('commentsapi/', SpiderCtrip.CommentsAPI, name="commentsapi"),
-
+    path('scrapydapi/', ScrapydCtrip.ScrapydAPI, name="scrapydapi"),
     path('snownlpapi/', SnowNLPCtrip.SnowNLPAPI, name="snownlpapi"),
     path('favicon.ico', RedirectView.as_view(url='static/favicon.ico')),
 

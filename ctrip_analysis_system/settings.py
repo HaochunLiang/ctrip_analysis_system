@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     'SpiderAPI',
     'SnowNLPAPI',
+    'ScrapydAPI',
 ]
 
 MIDDLEWARE = [

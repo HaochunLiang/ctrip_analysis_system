@@ -63,10 +63,10 @@
       <el-col :span="14">
         <div class="grid-content">
           <el-form ref="form" :model="form" :rules="rules" class="ruleForm">
-            <el-form-item label="爬虫景点ID(多账号用逗号隔开)" prop="wbid">
-              <el-input v-model="form.wbid" name="wbid"></el-input>
+            <el-form-item label="爬虫景点ID(多账号用逗号隔开)" prop="cpid">
+              <el-input v-model="form.cpid" name="cpid"></el-input>
             </el-form-item>
-            <el-form-item label="微博Cookie" prop="cookie">
+            <el-form-item label="携程Cookie" prop="cookie">
               <el-input type="textarea" :rows="8" v-model="form.cookie" name="cookie"></el-input>
             </el-form-item>
             <el-form-item>
@@ -98,17 +98,17 @@ export default {
         jobId: '此信息需要右侧启动爬虫才可显示'
       },
       form: {
-        wbid: '',
+        cpid: '',
         cookie: ''
       },
       rules: {
-        wbid: [{
+        cpid: [{
           required: true,
-          message: '请输入爬虫微博用户id',
+          message: '请输入爬虫景点id和区域id',
           trigger: 'blur'
         },
         {
-          min: 10,
+          min: 1,
           message: '长度不正确',
           trigger: 'blur'
         }],
@@ -122,16 +122,20 @@ export default {
   },
   methods: {
     onSubmit (formName) {
+      console.log(this.form.cpid)
+      console.log(this.$refs[formName])
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          let reg = new RegExp('^[0-9+,+，]*$')
-          if (!reg.test(this.form.wbid)) {
-            this.open('微博Id请输入纯数字')
+          let reg = new RegExp('^[0-9+,+，+;]*$')
+          // console.log(response.data)
+          if (!reg.test(this.form.cpid)) {
+            this.open('景点Id请输入纯数字')
           } else {
-            this.form.wbid = this.form.wbid.replace('，', ',')
-            axios.post('http://localhost:8000/scrapydapi/',
+            this.form.cpid = this.form.cpid.replace('，', ',')
+            // console.log(response.data)
+            axios.post('http://127.0.0.1:8000/scrapydapi/',
               Qs.stringify({
-                weiboIds: this.form.wbid,
+                sightIds: this.form.cpid,
                 cookies: this.form.cookie
               })
             ).then((response) => {
@@ -156,7 +160,7 @@ export default {
       })
     },
     getScrapyd () {
-      axios.get('http://localhost:8000/scrapydapi/')
+      axios.get('http://127.0.0.1:8000/scrapydapi/')
         .then((response) => {
           console.log(response.data)
           // if (response.data.status === 'ok') {
