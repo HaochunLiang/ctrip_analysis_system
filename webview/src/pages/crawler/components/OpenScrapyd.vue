@@ -63,7 +63,7 @@
       <el-col :span="14">
         <div class="grid-content">
           <el-form ref="form" :model="form" :rules="rules" class="ruleForm">
-            <el-form-item label="爬虫景点ID(多账号用逗号隔开)" prop="cpid">
+            <el-form-item label="爬虫景点ID和区域ID(多账号用冒号隔开,景点ID和区域ID用逗号隔开)" prop="cpid">
               <el-input v-model="form.cpid" name="cpid"></el-input>
             </el-form-item>
             <el-form-item label="携程Cookie" prop="cookie">
@@ -126,7 +126,7 @@ export default {
       console.log(this.$refs[formName])
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          let reg = new RegExp('^[0-9+,+，+;]*$')
+          let reg = new RegExp('^[0-9+,+;]*$')
           // console.log(response.data)
           if (!reg.test(this.form.cpid)) {
             this.open('景点Id请输入纯数字')

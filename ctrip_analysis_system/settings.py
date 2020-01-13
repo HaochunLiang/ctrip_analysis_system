@@ -67,6 +67,9 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+#最大上传数
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'ctrip_analysis_system.urls'

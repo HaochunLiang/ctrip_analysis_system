@@ -11,9 +11,9 @@ class TargetAdmin(object):
   list_filter = ['sid','did','cookie', 'isScrapy', 'group','add_time']
 
 class SightInfoAdmin(object):
-    list_display = ['Title', 'BusinessId', 'DistrictId','Tags','Texts','CommentScoreReal','CommentNumberText','AddressText','AddressWay','Img','crawl_time']
-    search_fields =['Title', 'BusinessId', 'DistrictId','Tags','Texts','CommentScoreReal','CommentNumberText','AddressText','AddressWay','Img','crawl_time']
-    list_filter =['Title', 'BusinessId', 'DistrictId','Tags','Texts','CommentScoreReal','CommentNumberText','AddressText','AddressWay','Img','crawl_time']
+    list_display = ['Title', 'Tags','Texts','DescriptorText','OpenTimeSubText','CommentScoreReal','CommentNumberText','AddressText','AddressWay','Img']
+    search_fields =['Title', 'BusinessId', 'DistrictId','Tags','Texts','DescriptorText','OpenTimeSubText','CommentScoreReal','CommentNumberText','AddressText','AddressWay','Img','crawl_time']
+    list_filter =['Title', 'BusinessId', 'DistrictId','Tags','Texts','DescriptorText','OpenTimeSubText','CommentScoreReal','CommentNumberText','AddressText','AddressWay','Img','crawl_time']
 
 class UserInfoAdmin(object):
     list_display = ['user_Id', 'user_Nick', 'user_profile_image_url', 'user_Gender','user_FriendCount','user_FollowCount','user_CommentCount','user_DistrictName']
@@ -21,9 +21,9 @@ class UserInfoAdmin(object):
     list_filter = ['user_Id', 'user_Nick', 'user_profile_image_url', 'user_Gender','user_FriendCount','user_FollowCount','user_CommentCount','user_DistrictName']
 
 class CommentInfoAdmin(object):
-    list_display = ['UserInfo','POIName','TotalStar','Content']
-    search_fields = ['UserInfo_user_Nick', 'SightInfo', 'CommentId', 'DistrictId','POIName','TotalStar','Content','AuditTime','LastModifyTime','Score1','Score2','Score3','crawl_time']
-    list_filter =  ['UserInfo', 'SightInfo', 'CommentId', 'DistrictId','POIName','TotalStar','Content','AuditTime','LastModifyTime','Score1','Score2','Score3','crawl_time']
+    list_display = ['UserInfo_id','POIName','TotalStar','Content']
+    search_fields = ['UserInfo_id', 'SightInfo_id', 'CommentId', 'DistrictId','POIName','TotalStar','Content','AuditTime','LastModifyTime','Score1','Score2','Score3','crawl_time']
+    list_filter =  ['UserInfo_id', 'SightInfo_id', 'CommentId', 'DistrictId','POIName','TotalStar','Content','AuditTime','LastModifyTime','Score1','Score2','Score3','crawl_time']
 
 
 xadmin.site.register(Target, TargetAdmin)

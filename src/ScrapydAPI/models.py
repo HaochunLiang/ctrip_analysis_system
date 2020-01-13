@@ -41,11 +41,13 @@ class SightInfo(models.Model):
     # 评论数
     CommentNumberText =models.IntegerField(default=0, verbose_name=u'评论数', blank=True)
     # 地点
-    AddressText = models.CharField(max_length=30, verbose_name=u"地点", blank=True)
+    AddressText = models.CharField(max_length=50, verbose_name=u"地点", blank=True)
     # 到达方式
     AddressWay= models.CharField(max_length=50, verbose_name=u"到达方式", blank=True)
     # 描述信息
-    #DescriptorText= models.TextField(verbose_name=u"描述信息", blank=True)
+    DescriptorText= models.TextField(verbose_name=u"描述信息", blank=True)
+    #开放时间
+    OpenTimeSubText=models.TextField(verbose_name=u"开放时间", blank=True)
     # 图片地址
     Img = models.TextField(verbose_name=u"图片地址", blank=True)
     #抓取时间
@@ -77,8 +79,10 @@ class UserInfo(models.Model):
 
 class CommentInfo(models.Model):
     #景点评论信息
-    UserInfo = models.ForeignKey(UserInfo, verbose_name=u"评论用户信息", on_delete=models.CASCADE)
-    SightInfo= models.ForeignKey(SightInfo, verbose_name=u"景点信息", on_delete=models.CASCADE)
+    #UserInfo = models.ForeignKey(UserInfo, verbose_name=u"评论用户信息", on_delete=models.CASCADE)
+    UserInfo_id=models.CharField(max_length=10, verbose_name=u"评论用户ID", blank=True)
+    #SightInfo= models.ForeignKey(SightInfo, verbose_name=u"景点信息", on_delete=models.CASCADE)
+    SightInfo_id=models.CharField(max_length=10, verbose_name=u"景点信息ID", blank=True)
     CommentId = models.CharField(max_length=50, verbose_name=u"评论的ID", primary_key=True)
     DistrictId= models.CharField(max_length=50, verbose_name=u"区域的ID", blank=True)
     POIName = models.CharField(max_length=50, verbose_name=u"景点名字", blank=True)
@@ -99,4 +103,4 @@ class CommentInfo(models.Model):
         verbose_name = u"评论详情"
         verbose_name_plural = verbose_name
     def __str__(self):
-        return "{0}".format(self.UserInfo)
+        return "{0}".format(self.CommentId)
