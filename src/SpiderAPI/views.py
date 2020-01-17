@@ -86,6 +86,7 @@ class SpiderCtrip:
         #     print(li)
         #     return HttpResponse(json.dumps(li))
 
+    #词云的API
     @csrf_exempt
     def WordCloudAPI(request):
         res = {}
@@ -157,7 +158,7 @@ class SpiderCtrip:
             else:
                 page = int(page) #get过来的page参数是字符串
             aritcles = CommentInfo.objects.filter(SightInfo_id = text)  #查询所有的数据
-            paginator = Paginator(aritcles, 10) #对数据进行分页，每页20条
+            paginator = Paginator(aritcles, 10) #对数据进行分页，每页10条
             print("=======================================")
             print(paginator.count,paginator.num_pages)
             pageData = paginator.page(page)

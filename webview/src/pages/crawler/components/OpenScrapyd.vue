@@ -113,7 +113,7 @@ export default {
           trigger: 'blur'
         }],
         cookie: [{
-          required: true,
+          required: false,
           message: '请填写Cookie',
           trigger: 'blur'
         }]

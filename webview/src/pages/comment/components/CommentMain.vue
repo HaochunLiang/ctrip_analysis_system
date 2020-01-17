@@ -40,9 +40,9 @@
           </g>
         </g>
       </svg>
-      <span class="name">单条微博评论信息爬虫分析</span>
+      <span class="name">单个景点基于aspect爬虫分析</span>
     </div>
-    <div class="detail">tips:手机版微博评论页面复制即可获取链接<br>
+    <div class="detail">tips:请输入已经持续爬虫完的景点的ID<br>
       <!-- <span class="desc">实现了requests+etree爬取少量weibo.cn微博用户信息以及所发微博，<br>
                 可独立爬取单条微博内容m.weibo.cn以及评论，<br>
                 后台有scrapyd单账号持续爬虫，日均10W条数据，<br>
@@ -51,11 +51,11 @@
             </span> -->
     </div>
     <div class="search">
-      <!-- <h3>微博用户爬虫</h3> -->
-      <input type="text" class="search-text" placeholder="请输入单条微博评论链接" ref="commentId">
+      <!-- <h3>景点分析</h3> -->
+      <input type="text" class="search-text" placeholder="请输入单个景点的ID" ref="commentId">
       <a href="#">
         <button type="button" class="search-scrapy" @click="getCommentId">
-          <span>爬虫一下</span>
+          <span>分析一下</span>
         </button>
       </a>
     </div>
@@ -79,7 +79,8 @@ export default {
       this.commentId = this.$refs.commentId.value
       console.log(this.commentId)
       this.openFullScreen2()
-      if (this.commentId.length === 16) {
+      let reg = new RegExp('^[0-9]*$')
+      if (reg.test(this.commentId)) {
         console.log('zq')
         axios.post('http://localhost:8000/getcomment/',
           Qs.stringify({
@@ -105,7 +106,7 @@ export default {
           })
       } else {
         this.loading.close()
-        this.$message.error('输入单条微博id有误，请检查后重新输入！')
+        this.$message.error('输入单个景点id有误，请检查后重新输入！')
       }
     },
     openFullScreen2 () {

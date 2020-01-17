@@ -49,3 +49,32 @@ class ScrapydCtrip:
             requrl = "http://localhost:6800/daemonstatus.json"
             result = requests.get(requrl)
             return HttpResponse(result)
+
+    @csrf_exempt
+    def getComment(request):
+        res={}
+        if request.method == "POST":
+            text = request.POST.get("commentId")
+            print(text)
+            print(type(text))
+            #try:
+            #CommentInfo.objects.filter(SightInfo_id=text)
+            ctripinfos = CommentInfo.objects.filter(SightInfo_id=text)
+
+            res['ok'] = "数据库已存在该景点，开始返回数据"
+            #ctripinfos=CommentInfo.objects.filter(SightInfo_id=text)
+            print(ctripinfos.count())
+            #对数据进行去重
+            ctripinfos=ctripinfos.values('Content').distinct()
+            print(ctripinfos.count())
+            print(ctripinfos)
+            for ctripinfo in ctripinfos:
+                print(ctripinfo['Content'])
+                print(type(ctripinfo['Content']))
+                break
+            #except:
+                #print("数据库不存在该评论，正在爬虫生成")
+                #print(text)
+                #print("555555")
+
+            return HttpResponse(None)

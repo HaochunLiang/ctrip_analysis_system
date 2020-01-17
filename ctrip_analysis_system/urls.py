@@ -32,6 +32,7 @@ urlpatterns = [
     path('commentsapi/', SpiderCtrip.CommentsAPI, name="commentsapi"),
     path('scrapydapi/', ScrapydCtrip.ScrapydAPI, name="scrapydapi"),
     path('snownlpapi/', SnowNLPCtrip.SnowNLPAPI, name="snownlpapi"),
+    path('getcomment/', ScrapydCtrip.getComment, name="getcomment"),
     path('favicon.ico', RedirectView.as_view(url='static/favicon.ico')),
 
 ]

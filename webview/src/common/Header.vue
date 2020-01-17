@@ -4,7 +4,7 @@
       <p>携程爬虫首页</p>
     </router-link>
     <router-link to="/comment">
-      <p>单条微博爬虫</p>
+      <p>基于aspect的情感分析</p>
     </router-link>
     <router-link to="/crawler">
       <p>景点持续爬虫</p>
