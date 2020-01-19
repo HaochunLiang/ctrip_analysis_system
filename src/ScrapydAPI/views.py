@@ -57,24 +57,63 @@ class ScrapydCtrip:
             text = request.POST.get("commentId")
             print(text)
             print(type(text))
-            #try:
-            #CommentInfo.objects.filter(SightInfo_id=text)
             ctripinfos = CommentInfo.objects.filter(SightInfo_id=text)
+            if ctripinfos.count()!=0:
+                print("数据库已存在该景点，开始返回数据")
+                res['ok'] = "数据库已存在该景点，开始返回数据"
+                #ctripinfos=CommentInfo.objects.filter(SightInfo_id=text)
+                print(ctripinfos.count())
+                #对数据进行去重
+                ctripinfos=ctripinfos.values('Content').distinct()
+                print(ctripinfos.count())
+                #print(ctripinfos)
+                #统计词频
+                c = Counter()
+                outstr = ''
+                # 去除停用词
+                filepath = path.dirname(__file__) + '\stopword.txt'
+                stopwords = [line.strip() for line in open(filepath, 'r', encoding='utf-8').readlines()]
+                print(stopwords)
+                print(type(stopwords[-1]))
+                #stopwords2=['&','#','A','x','F','�','【','】','✌','✨']
+                for ctripinfo in ctripinfos:
+                    print(ctripinfo['Content'])
+                    #print(type(ctripinfo['Content']))
+                    wordlist_after_jieba = jieba.cut(ctripinfo['Content'], cut_all=False)
+                    wl_space_split = (" ".join(wordlist_after_jieba))
+                    # #去除停用词
+                    # filepath = path.dirname(__file__) + '\stopword.txt'
+                    # stopwords = [line.strip() for line in open(filepath, 'r', encoding='utf-8').readlines()]
+                    # print()
+                    #print(wl_space_split)
+                    #print(type(wl_space_split))
+                    #print(type(wl_space_split[0]))
+                    for word in wl_space_split:
+                        if word not in stopwords:
+                            if word != '\t' and '\n':
+                                #if word not in stopwords2:
+                               outstr += word
+                    break
+                #print(outstr)
+                outstr = outstr.split(' ')
 
-            res['ok'] = "数据库已存在该景点，开始返回数据"
-            #ctripinfos=CommentInfo.objects.filter(SightInfo_id=text)
-            print(ctripinfos.count())
-            #对数据进行去重
-            ctripinfos=ctripinfos.values('Content').distinct()
-            print(ctripinfos.count())
-            print(ctripinfos)
-            for ctripinfo in ctripinfos:
-                print(ctripinfo['Content'])
-                print(type(ctripinfo['Content']))
-                break
-            #except:
-                #print("数据库不存在该评论，正在爬虫生成")
-                #print(text)
-                #print("555555")
+                while '' in outstr:
+                    outstr.remove('')
+                    #break#
+                #print(outstr)
+                for word in outstr:
+                    c[word] += 1
+                print(outstr)
+                cipin = list()
+                li = list(c.items())
+                li.sort(key=lambda x: x[1], reverse=True)
+                #mingancount = 0
+                for (k, v) in li:
+                    cipin.append({"word": k, "count": v})
+                print(cipin)
+            else:
+                print("数据库不存在该评论，正在爬虫生成")
+                print(text)
+                print("555555")
 
             return HttpResponse(None)

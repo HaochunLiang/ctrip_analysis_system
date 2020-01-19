@@ -285,7 +285,7 @@ class Ctrip:
             print("正在爬虫：评论信息")
             #分析前20
             page=1
-            while page<3:
+            while page<5:
                 len=self.getCommentInfoResponse(page)
                 page=page+1
                 if len<10:

@@ -162,6 +162,7 @@ class SpiderCtrip:
             print("=======================================")
             print(paginator.count,paginator.num_pages)
             pageData = paginator.page(page)
+            print(pageData)
             ret['total'] = paginator.count
             ret['data'] = serializers.serialize("json",pageData)
             return HttpResponse(json.dumps(ret))
