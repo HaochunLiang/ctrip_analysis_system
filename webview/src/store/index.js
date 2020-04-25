@@ -12,14 +12,14 @@ import group from './group'
 
 // new
 import sight from './sightInfo'
-import sightcomment from './sightComments'
+import sightcomments from './sightComments'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   // 新增加的内容
   sight,
-  sightcomment,
+  sightcomments,
   // 旧的内容
   user,
   usertweets,

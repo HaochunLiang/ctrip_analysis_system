@@ -104,3 +104,12 @@ class CommentInfo(models.Model):
         verbose_name_plural = verbose_name
     def __str__(self):
         return "{0}".format(self.CommentId)
+
+class AspectInfo(models.Model):
+    SightInfo_id = models.CharField(max_length=10, verbose_name=u"景点信息ID", blank=True)
+    AspectWord = models.TextField(verbose_name=u"方面词统计", blank=True)
+    class Meta:
+        verbose_name = u"Aspect words"
+        verbose_name_plural = verbose_name
+    def __str__(self):
+        return "{0}".format(self.SightInfo_id)

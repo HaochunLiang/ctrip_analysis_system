@@ -1,6 +1,6 @@
 <template>
   <el-timeline class="mytimestamp">
-    <el-timeline-item timestamp="快速爬虫用户" color="#E6A23C" placement="top">
+    <el-timeline-item timestamp="快速爬虫景点" color="#E6A23C" placement="top">
       <el-card>
         <ul class="img-style">
           <li v-for="(info, index) in infos" :key="index">
@@ -11,7 +11,7 @@
         </ul>
       </el-card>
     </el-timeline-item>
-    <el-timeline-item timestamp="持续爬虫用户" color="#67C23A" placement="top">
+    <el-timeline-item timestamp="持续爬虫景点" color="#67C23A" placement="top">
       <el-card>
         <ul v-for="(info1, index) in infos1" :key="index" class="ulinfos1" @click="goInGroup(info1.info)">
           组{{index}}
@@ -21,7 +21,7 @@
         </ul>
       </el-card>
     </el-timeline-item>
-    <el-timeline-item timestamp="单条微博" color="#F56C6C" placement="top">
+    <el-timeline-item timestamp="单条评论" color="#F56C6C" placement="top">
       <el-card>
         <div v-for="(info, index) in infos2" :key="index" class="outer" @click="goInComment(info.wb_id)">
           <div class="m_l">

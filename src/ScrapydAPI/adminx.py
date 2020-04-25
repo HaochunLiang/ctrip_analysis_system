@@ -2,7 +2,7 @@ import xadmin
 
 from xadmin import views
 # here put the import lib
-from .models import Target, UserInfo,CommentInfo,SightInfo
+from .models import Target, UserInfo,CommentInfo,SightInfo,AspectInfo
 
 
 class TargetAdmin(object):
@@ -25,9 +25,14 @@ class CommentInfoAdmin(object):
     search_fields = ['UserInfo_id', 'SightInfo_id', 'CommentId', 'DistrictId','POIName','TotalStar','Content','AuditTime','LastModifyTime','Score1','Score2','Score3','crawl_time']
     list_filter =  ['UserInfo_id', 'SightInfo_id', 'CommentId', 'DistrictId','POIName','TotalStar','Content','AuditTime','LastModifyTime','Score1','Score2','Score3','crawl_time']
 
+class AspectInfoAdmin(object):
+    list_display = ['SightInfo_id','AspectWord']
+    search_fields = ['SightInfo_id','AspectWord']
+    list_filter =  ['SightInfo_id','AspectWord']
 
 xadmin.site.register(Target, TargetAdmin)
 xadmin.site.register(SightInfo, SightInfoAdmin)
 #xadmin.site.register(CommentInfo, CommentInfoAdmin)
 xadmin.site.register(UserInfo, UserInfoAdmin)
 xadmin.site.register(CommentInfo, CommentInfoAdmin)
+xadmin.site.register(AspectInfo, AspectInfoAdmin)

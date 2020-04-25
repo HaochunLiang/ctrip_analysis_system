@@ -75,7 +75,7 @@ class ScrapydCtrip:
                 stopwords = [line.strip() for line in open(filepath, 'r', encoding='utf-8').readlines()]
                 print(stopwords)
                 print(type(stopwords[-1]))
-                #stopwords2=['&','#','A','x','F','�','【','】','✌','✨']
+                #  stopwords2=['&','#','A','x','F','�','【','】','✌','✨']
                 for ctripinfo in ctripinfos:
                     print(ctripinfo['Content'])
                     #print(type(ctripinfo['Content']))

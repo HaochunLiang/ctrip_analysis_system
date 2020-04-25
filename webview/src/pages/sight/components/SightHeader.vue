@@ -212,7 +212,7 @@
       </el-col>
     </el-row>
     <div class="page" ref="page" >
-      <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="this.size"
+      <el-pagination  @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="this.size"
         layout="prev, pager, next" :total='this.total'>
       </el-pagination>
     </div>
@@ -242,7 +242,8 @@ export default {
         sexwoman: require('@/assets/sex-f.png')
       },
       size: 10,
-      //pageshow:true,
+      // pageshow:true,
+      // paginationShow:true,
       currentPage: 1,
       mycomments: this.$store.state.sightcomments,
       srcs: this.msrcs(),
@@ -264,7 +265,7 @@ export default {
       // user: state => state.user,
       // mytweets:state=>state.usertweets,
       sight: state => state.sight,
-      //mycomments: state => state.sightcomments,
+      mycomments: state => state.sightcomments,
       total: state => state.total
     }),
     sightInfo: function ()
@@ -296,7 +297,7 @@ export default {
         return this.img.splice(1)
       } else {
         return 0
-      }
+    }
     },
     open () {
       console.log(this.sightInfo[0].pk)
@@ -375,11 +376,18 @@ export default {
           })
       }
     },
+    // search () {
+    //       this.paginationShow = false
+    //       this.handleCurrentChange(1)
+    //       this.$nextTick(function () {
+    //         this.paginationShow = true;
+    //       })
+    //     },
     handleCurrentChange (val) {
       console.log(val)
       console.log(this.sightId)
       console.log(this.currentPage)
-      //this.pageshow = true//让分页隐藏
+      // this.pageshow = true//让分页隐藏
       axios.post('http://127.0.0.1:8000/commentsapi/',
         Qs.stringify({
           sightId: this.sightId,
@@ -389,14 +397,18 @@ export default {
         this.$store.state.sightcomments = null
         this.$store.state.sightcomments = response.data.data
         this.sightcomments = response.data.data
-        //this.getData();//获取数据
-        //this.pageshow = false//让分页隐藏
-        //this.$nextTick(() => {//重新渲染分页
+        // this.getData();//获取数据
+        // this.pageshow = false//让分页隐藏
+        // this.$nextTick(() => {//重新渲染分页
         //     this.pageshow = true
         // })
-        console.log(this.$store.state.sightcomments)
-        console.log("----------------------")
-        console.log(this.sightcomments)
+        // this.currentPage=1
+        // this.currentPage=val
+        // console.log(this.$store.state.sightcomments)
+        // console.log("----------------------")
+        this.mycomments = this.sightcomments
+        // console.log(this.mycomments)
+        // this.sightComments=this.sightcomments
       })
     },
     ...mapMutations(['changeSightComments'])

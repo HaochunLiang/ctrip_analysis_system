@@ -1,6 +1,6 @@
 export default {
-  changeUserTweets (state, usertweets) {
-    state.usertweets = usertweets
+  changeSightComments (state, sightcomments) {
+    state.sightcomments = sightcomments
     // try {
     //   localStorage.tweets = usertweets
     // } catch (e) {}
