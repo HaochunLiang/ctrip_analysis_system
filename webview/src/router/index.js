@@ -45,6 +45,11 @@ export default new Router({
     component: () => import('@/pages/mycrawler/MyCrawler')
   },
   {
+    path: '/wordcloudchart',
+    name: 'WordCloudChart',
+    component: () => import('@/pages/wordcloudchart/WordCloudChart')
+  },
+  {
     path: '/usergroup',
     name: 'UserGroup',
     component: () => import('@/pages/usergroup/UserGroup')

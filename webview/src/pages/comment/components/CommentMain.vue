@@ -54,7 +54,7 @@
       <!-- <h3>景点分析</h3> -->
       <input type="text" class="search-text" placeholder="请输入单个景点的ID" ref="commentId">
       <a href="#">
-        <button type="button" class="search-scrapy" @click="getCommentId">
+        <button type="button" class="search-scrapy" @click="goInWb1">
           <span>分析一下</span>
         </button>
       </a>
@@ -75,6 +75,32 @@ export default {
     }
   },
   methods: {
+    goInWb1: function () {
+          this.openFullScreen2()
+          axios.post('http://localhost:8000/scrapydapi1/',
+            Qs.stringify({
+              // weiboId: id,
+              sightId: this.$refs.commentId.value,
+              //districtId:id2
+            })
+          ).then((response) => {
+            // this.$store.state.user = response.data.data
+            // this.$store.state.usertweets = response.data.tweets
+            // this.$store.state.total = response.data.total
+            // this.loading.close()
+            // this.$router.push({
+            //   path: '/user'
+            console.log(response.data.data)
+            //console.log(response.data.total)
+            this.$store.state.sight1 = response.data.data
+            //this.$store.state.sightcomments = response.data.comments
+            //this.$store.state.total = response.data.total
+            this.loading.close()
+            this.$router.push({
+              path: '/wordcloudchart'
+            })
+          })
+        },
     getCommentId: function () {
       this.commentId = this.$refs.commentId.value
       console.log(this.commentId)

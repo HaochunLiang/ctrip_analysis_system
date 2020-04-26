@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 from django.views.decorators.csrf import csrf_exempt
-from .models import Target, UserInfo, SightInfo,CommentInfo
+from .models import Target, UserInfo, SightInfo,CommentInfo,AspectInfo
 from collections import Counter
 from src.SnowNLPAPI.snownlp import SnowNLP
 from src.SnowNLPAPI.snownlp import sentiment
@@ -49,6 +49,24 @@ class ScrapydCtrip:
             requrl = "http://localhost:6800/daemonstatus.json"
             result = requests.get(requrl)
             return HttpResponse(result)
+    @csrf_exempt
+    def ScrapydAPI1(request):
+        res = {}
+        if request.method == "POST":
+            text1 = request.POST.get("sightId")
+            SightInfo.objects.get(BusinessId=text1)
+            res['ok'] = "数据库已存在该用户，开始返回数据"
+            res['data'] = serializers.serialize("json", SightInfo.objects.filter(BusinessId=text1))
+            res['aspect']=serializers.serialize("json", AspectInfo.objects.filter(SightInfo_id=text1))
+            return HttpResponse(json.dumps(res))
+
+
+    @csrf_exempt
+    def getLasted(request):
+        infos = SightInfo.objects.values("BusinessId", "Img", "Title", "DistrictId")
+        result = json.dumps(list(infos), cls=DjangoJSONEncoder)
+        print(result)
+        return JsonResponse(result, safe=False)
 
     @csrf_exempt
     def getComment(request):

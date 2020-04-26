@@ -1,43 +1,30 @@
 <template>
   <el-timeline class="mytimestamp">
-    <el-timeline-item timestamp="快速爬虫景点" color="#E6A23C" placement="top">
+    <el-timeline-item timestamp="快速爬虫景点(对每个景点进行简单的分析)" color="#E6A23C" placement="top">
       <el-card>
         <ul class="img-style">
           <li v-for="(info, index) in infos" :key="index">
             <div class="photo-warp">
-              <img :src="info.Image" class="wb-img" @click="goInWb(info._id)" :title="info.NickName">
+              <img :src="info.Img" class="wb-img" @click="goInWb(info.BusinessId,info.DistrictId)" :title="info.Title">
             </div>
           </li>
         </ul>
       </el-card>
     </el-timeline-item>
-    <el-timeline-item timestamp="持续爬虫景点" color="#67C23A" placement="top">
+    <el-timeline-item timestamp="持续爬虫景点(对景点的评论进行基于aspect的情感分析)" color="#67C23A" placement="top">
       <el-card>
-        <ul v-for="(info1, index) in infos1" :key="index" class="ulinfos1" @click="goInGroup(info1.info)">
-          组{{index}}
-          <li v-for="(info2, i) in infos1[index].info" :key="i">
-            <img :src="info2.Image" :title="info2.nick_name">
+
+        <ul class="img-style">
+          <li v-for="(info, index) in infos1" :key="index">
+            <div class="photo-warp">
+              <img :src="info.Img" class="wb-img" @click="goInWb1(info.BusinessId,info.DistrictId)" :title="info.Title">
+            </div>
+
           </li>
         </ul>
       </el-card>
     </el-timeline-item>
-    <el-timeline-item timestamp="单条评论" color="#F56C6C" placement="top">
-      <el-card>
-        <div v-for="(info, index) in infos2" :key="index" class="outer" @click="goInComment(info.wb_id)">
-          <div class="m_l">
-            <img :src="info.wb_user_profile_image_url">
-          </div>
-          <div class="m_r">
-            <p>
-              <a class="mscrame" @click="website(info.wb_userId)" href="javascript:;" target="_blank">{{info.wb_userName}}</a>
-            </p>
-            <div class="mwbcontext">
-              <p v-html="info.wb_text" ref='cvs'></p>
-            </div>
-          </div>
-        </div>
-      </el-card>
-    </el-timeline-item>
+
   </el-timeline>
 </template>
 
@@ -60,45 +47,18 @@ export default {
       axios.get('http://localhost:8000/getquick/').then((response) => {
         let res = JSON.parse(response.data)
         for (let i = 0; i < res.length; i++) {
-          res[i].Image = eval('(' + res[i].Image + ')')[0]
+          res[i].Img = eval('(' + res[i].Img + ')')[0]
         }
         this.infos = res
       })
     },
     getLasted () {
       axios.get('http://localhost:8000/getlasted/').then((response) => {
-        let res = JSON.parse(response.data.user)
-        let group = JSON.parse(response.data.target)
-        let count = JSON.parse(response.data.count)
-        let newres = []
-        for (let i = 0; i < res.length; i++) {
-          for (let j = 0; j < group.length; j++) {
-            if (res[i]._id === group[j].uid) {
-              res[i].group = group[j].group
-            }
-          }
-        }
-        for (let k = 0; k < count.length; k++) {
-          newres.push({
-            'group': count[k][0],
-            'info': []
-          })
-          for (let l = 0; l < res.length; l++) {
-            if (newres[k].group === res[l].group) {
-              newres[k].info.push(res[l])
-            }
-          }
-        }
-        this.infos1 = newres
-      })
-    },
-    getWeibo () {
-      axios.get('http://localhost:8000/getweibo/').then((response) => {
         let res = JSON.parse(response.data)
         for (let i = 0; i < res.length; i++) {
-          res[i].wb_text = res[i].wb_text.replace('data-hide=""', 'target="_blank"').replace(/1rem/g, '.3rem')
+          res[i].Img = eval('(' + res[i].Img + ')')[0]
         }
-        this.infos2 = res
+        this.infos1 = res
       })
     },
     website: function (userId) {
@@ -144,19 +104,55 @@ export default {
       })
       console.log(group)
     },
-    goInWb: function (id) {
+    goInWb: function (id1,id2) {
       this.openFullScreen2()
       axios.post('http://localhost:8000/spiderapi/',
         Qs.stringify({
-          weiboId: id
+          // weiboId: id,
+          sightId: id1,
+          districtId:id2
         })
       ).then((response) => {
-        this.$store.state.user = response.data.data
-        this.$store.state.usertweets = response.data.tweets
+        // this.$store.state.user = response.data.data
+        // this.$store.state.usertweets = response.data.tweets
+        // this.$store.state.total = response.data.total
+        // this.loading.close()
+        // this.$router.push({
+        //   path: '/user'
+        this.$store.state.sight = response.data.data
+        this.$store.state.sightcomments = response.data.comments
         this.$store.state.total = response.data.total
         this.loading.close()
         this.$router.push({
-          path: '/user'
+          path: '/sight'
+        })
+      })
+    },
+    goInWb1: function (id1,id2) {
+      this.openFullScreen2()
+      axios.post('http://localhost:8000/scrapydapi1/',
+        Qs.stringify({
+          // weiboId: id,
+          sightId: id1,
+          //districtId:id2
+        })
+      ).then((response) => {
+        // this.$store.state.user = response.data.data
+        // this.$store.state.usertweets = response.data.tweets
+        // this.$store.state.total = response.data.total
+        // this.loading.close()
+        // this.$router.push({
+        //   path: '/user'
+        console.log(response.data.data)
+        //console.log(response.data.total)
+        this.$store.state.sight1 = response.data.data
+        this.$store.state.aspect_word = response.data.aspect
+        console.log(response.data.aspect)
+        //this.$store.state.sightcomments = response.data.comments
+        //this.$store.state.total = response.data.total
+        this.loading.close()
+        this.$router.push({
+          path: '/wordcloudchart'
         })
       })
     },
@@ -172,7 +168,7 @@ export default {
   mounted () {
     this.getQuick()
     this.getLasted()
-    this.getWeibo()
+    //this.getWeibo()
   }
 }
 

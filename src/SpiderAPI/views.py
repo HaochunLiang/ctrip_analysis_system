@@ -180,7 +180,12 @@ class SpiderCtrip:
                 CommentInfo.objects.filter(CommentId=e.CommentId).update(sentiments=s.sentiments)
                 print(s.keywords(5))
             return HttpResponse("success")
-
+    @csrf_exempt
+    def getQuick(request):
+        infos = SightInfo.objects.values("BusinessId", "Img" ,"Title","DistrictId")
+        result = json.dumps(list(infos), cls=DjangoJSONEncoder)
+        print(result)
+        return JsonResponse(result, safe=False)
 
 #日期转化代码
 class JsonCustomEncoder(json.JSONEncoder):

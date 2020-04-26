@@ -11,7 +11,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import store from './store'
 import preview from 'vue-photo-preview'
 import 'vue-photo-preview/dist/skin.css'
+import echarts from 'echarts'
 
+Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 Vue.use(VueParticles)
 Vue.use(ElementUI)

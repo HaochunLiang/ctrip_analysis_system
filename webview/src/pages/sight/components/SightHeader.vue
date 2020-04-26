@@ -132,29 +132,7 @@
               </div>
               <!-- <img v-else :src="'data:image/png;base64,'+ico" class="avatar"> -->
             </el-card>
-            <el-card class="box-card-detail ciyun">
-              <div slot="header" class="clearfix">
-                <span>情感分析折线图</span>
-                <el-button style="float: right; padding: 3px 0" type="text"></el-button>
-              </div>
-              <div v-if="this.textchartData ==='' " style="padding: 0.3125rem;">情感分析结果加载中...</div>
-              <div v-else>
-                <ve-line :data="textchartData" style="margin-top: .3125rem;"></ve-line>
-                <div class="well fz14" style="padding: 0.3125rem;font-size: 13px;margin-bottom: 0;background-color:#f7f9fa !important">
-                  景点@<strong>{{this.sightInfo[0].fields.Title}}</strong>的评论内容中，
-                  总微博条数<strong>{{this.sightInfo[0].fields.CommentNumberText}}</strong>条，
-                  经过处理得到有效微博条数<strong>{{this.emtionanaly.len}}</strong>条。有效情感分析结果如上图所示，
-                  其中消极评论最小值<strong>{{ this.emtionanaly.smalldate }}</strong>
-                  ，次数是<strong>{{ this.emtionanaly.smallcount }}</strong>；
-                  积极评论最大值<strong>{{ this.emtionanaly.bigdate }}</strong>
-                  ，次数是<strong>{{ this.emtionanaly.bigcount }}</strong>；
-                  最大的评论次数是<strong>{{ this.emtionanaly.maxcount }}</strong>次
-                  ，情感值是<strong>{{ this.emtionanaly.maxdate }}</strong>。
-                  全部评论中：消极评论内容占比<strong>{{ (this.emtionanaly.count0 / this.emtionanaly.len)*100 }}%</strong>，
-                  积极评论内容占比<strong>{{ (this.emtionanaly.count1 / this.emtionanaly.len)*100 }}%</strong>。
-                </div>
-              </div>
-            </el-card>
+   
           </div>
         </div>
       </el-col>

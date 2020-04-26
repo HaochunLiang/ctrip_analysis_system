@@ -12,6 +12,7 @@ import group from './group'
 
 // new
 import sight from './sightInfo'
+import sight1 from './sightInfo1'
 import sightcomments from './sightComments'
 
 Vue.use(Vuex)
@@ -19,6 +20,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   // 新增加的内容
   sight,
+  sight1,
   sightcomments,
   // 旧的内容
   user,
